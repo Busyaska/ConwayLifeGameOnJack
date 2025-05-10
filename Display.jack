@@ -5,14 +5,15 @@ class Display {
     function void init() {
         let rectSize = 8;
         let isInitialized = 1;
+        return;
     }
 
     function void updateScreen(Array array) {
         var Array innerArray;
         var int width, height, curWidth, curHeight;
         var int x1, y1, x2, y2;
-        let width = do Game.getWidth();
-        let height = do Game.getHeight();
+        let width = Game.getWidth();
+        let height = Game.getHeight();
         let curHeight = 0;
 
         if (isInitialized = 0) {
@@ -28,7 +29,7 @@ class Display {
                     let x2 = curWidth + rectSize;
                     let y1 = curHeight;
                     let y2 = curHeight + rectSize;
-                    do Screen.drawRectangle(x1, y1, x2, y2)
+                    do Screen.drawRectangle(x1, y1, x2, y2);
                 }
                 let curWidth = curWidth + 1;
             }

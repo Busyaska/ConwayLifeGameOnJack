@@ -7,8 +7,8 @@ class Game {
         if (isInitialized = 0) {
             do Game.init();
         }
-        let curGen = do Game.getNewArray();
-        do this.initSpace();
+        let curGen = Game.getNewArray();
+        do Game.initSpace(curGen);
         return this;
     }
 
@@ -41,7 +41,7 @@ class Game {
         return height;
     }
 
-    method void initSpace () {
+    function void initSpace (Array array) {
         var Array innerArray;
         var int curWidth, curHeight, value;
         let curHeight = 0;
@@ -49,7 +49,7 @@ class Game {
         while (~(curHeight = height)) {
             let curWidth = 0;
             while (~(curWidth = width)) {
-                let innerArray = curGen[curHeight];
+                let innerArray = array[curHeight];
                 let value = ((curWidth * 17 + curHeight * 31 + 47) & 1);
                 let innerArray[curWidth] = value;
 
@@ -59,25 +59,24 @@ class Game {
             let curHeight = curHeight + 1;
         }
 
-        do innerArray.dispose();
         let innerArray = null;
         return;
     }
 
-    method int countAliveNeighbours (int x, int y) {
+    function int countAliveNeighbours (Array array, int x, int y) {
         var Array innerArray;
         var int count, tempX, tempY, dx, dy;
         let count = 0;
         let dy = -1;
         
-        while (dy <= 1) {
+        while ((dy < 1) | (dy = 1)) {
             let dx = -1;
-            while (dx <= 1) {
+            while ((dx < 1) | (dx = 1)) {
                 let tempX = x + dx;
                 let tempY = y + dy;
                 if (~((dx = 0) & (dy = 0))) {
-                    if ((tempX >= 0) & (tempX < width) & (tempY >= 0) & (tempY < height)) {
-                        let innerArray = curGen[tempY];
+                    if (((tempX > 0) | (tempX = 0)) & (tempX < width) & ((tempY > 0) | (tempY = 0)) & (tempY < height)) {
+                        let innerArray = array[tempY];
                         if (innerArray[tempX] = 1) {
                             let count = count + 1;
                         }
@@ -88,18 +87,14 @@ class Game {
             let dy = dy + 1;
         }
 
-        do innerArray.dispose();
         let innerArray = null;
         return count;
-    }
-
-    return count;
     }
 
     method void update () {
         var Array nextGen, innerArrayCur, innerArrayNext;
         var int curWidth, curHeight, neighboursCount;    
-        let nextGen = do Game.getNewArray();
+        let nextGen = Game.getNewArray();
         let curWidth = 0;
 
         while (~(height = curHeight)) {            
@@ -108,10 +103,10 @@ class Game {
             while (~(width = curWidth)) {
                 let innerArrayCur = curGen[curHeight];
                 let innerArrayNext = nextGen[curHeight];
-                let neighboursCount = do this.countAliveNeighbours(curWidth, curHeight);
+                let neighboursCount = Game.countAliveNeighbours(curGen, curWidth, curHeight);
 
                 if (innerArrayCur[curWidth] = 1) {
-                    if (neighboursCount = 2 | neighboursCount = 3) {
+                    if ((neighboursCount = 2) | (neighboursCount = 3)) {
                         let innerArrayNext[curWidth] = 1;
                     }
                 } else {
@@ -137,9 +132,7 @@ class Game {
             let curHeight = curHeight + 1;
         }
         
-        do nextGen.dispose();
-        do innerArrayCur.dispose();
-        do innerArrayNext.dispose();
+        do Game.clearArray(nextGen);
         let nextGen = null;
         let innerArrayCur = null;
         let innerArrayNext = null;
@@ -167,7 +160,7 @@ class Game {
 
     method void clear() {
         do Game.clearArray(curGen);
-        let nextGen = null;
+        let curGen = null;
         return;
     }
 }

@@ -6,25 +6,26 @@ class Program {
     function void init () {
         let isPaused = false;
         let isRunning = true;
-        let speed = 250;
+        let curSpeed = 250;
         let speedChangeStep = 50;
         let isInitialized = 1;
+        return;
     }
 
     function void run() {
         var Game game;
         var Array curArray;
-        let game = Game.new()
+        let game = Game.new();
 
         if (isInitialized = 0) {
-            do Game.init();
+            do Program.init();
         }
 
         while (isRunning) {
             do Program.processInput();
             if (~(isPaused)) {
                 do game.update();
-                let curArray = do game.getCurrentGeneration();
+                let curArray = game.getCurrentGeneration();
                 do Display.updateScreen(curArray);
                 do Sys.wait(curSpeed);
             }
@@ -40,17 +41,17 @@ class Program {
         let rightArrowButton = 132;
         let leftArrowButton = 130;
         let spaceButton = 32;
-        let button = do Keyboard.keyPressed();
-        if (button = spaceButton) {
+        let curButton = Keyboard.keyPressed();
+        if (curButton = spaceButton) {
             let isPaused = (~(isPaused));
         }
-        if (button = escButton) {
+        if (curButton = escButton) {
             let isRunning = false;
         }
-        if (button = rightArrowButton) {
+        if (curButton = rightArrowButton) {
             do Program.updateSpeed(true);
         }
-        if (button = leftArrowButton) {
+        if (curButton = leftArrowButton) {
             do Program.updateSpeed(false);
         }
         return;
