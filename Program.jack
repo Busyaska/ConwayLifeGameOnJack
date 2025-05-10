@@ -1,0 +1,74 @@
+class Program {
+
+    static boolean isPaused, isRunning;
+    static int curSpeed, speedChangeStep, maxSpeed, minSpeed, isInitialized;
+
+    function void init () {
+        let isPaused = false;
+        let isRunning = true;
+        let speed = 250;
+        let speedChangeStep = 50;
+        let isInitialized = 1;
+    }
+
+    function void run() {
+        var Game game;
+        var Array curArray;
+        let game = Game.new()
+
+        if (isInitialized = 0) {
+            do Game.init();
+        }
+
+        while (isRunning) {
+            do Program.processInput();
+            if (~(isPaused)) {
+                do game.update();
+                let curArray = do game.getCurrentGeneration();
+                do Display.updateScreen(curArray);
+                do Sys.wait(curSpeed);
+            }
+        }
+        do game.clear();
+        let game = null;
+        return; 
+    }
+
+    function void processInput () {
+        var int curButton, spaceButton, leftArrowButton, rightArrowButton, escButton;
+        let escButton = 140;
+        let rightArrowButton = 132;
+        let leftArrowButton = 130;
+        let spaceButton = 32;
+        let button = do Keyboard.keyPressed();
+        if (button = spaceButton) {
+            let isPaused = (~(isPaused));
+        }
+        if (button = escButton) {
+            let isRunning = false;
+        }
+        if (button = rightArrowButton) {
+            do Program.updateSpeed(true);
+        }
+        if (button = leftArrowButton) {
+            do Program.updateSpeed(false);
+        }
+        return;
+    }
+
+    function void updateSpeed (boolean speedUp) {
+        var int newSpeed;
+        if (speedUp) {
+            let newSpeed = curSpeed + speedChangeStep;
+            if (~(newSpeed = maxSpeed)) {
+                let curSpeed = newSpeed;
+            }
+        } else {
+            let newSpeed = curSpeed - speedChangeStep;
+            if (~(newSpeed = minSpeed)) {
+                let curSpeed = newSpeed;
+            }
+        }
+        return;
+    }
+}

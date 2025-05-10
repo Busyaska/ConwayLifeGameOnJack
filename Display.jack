@@ -1,0 +1,41 @@
+class Display {
+
+    static int rectSize, isInitialized;
+
+    function void init() {
+        let rectSize = 8;
+        let isInitialized = 1;
+    }
+
+    function void updateScreen(Array array) {
+        var Array innerArray;
+        var int width, height, curWidth, curHeight;
+        var int x1, y1, x2, y2;
+        let width = do Game.getWidth();
+        let height = do Game.getHeight();
+        let curHeight = 0;
+
+        if (isInitialized = 0) {
+            do Display.init();
+        }
+
+        while (~(height = curHeight)) {            
+            let curWidth = 0;
+            while (~(width = curWidth)) {
+                let innerArray = array[curHeight];
+                if (innerArray[curWidth] = 1) {
+                    let x1 = curWidth;
+                    let x2 = curWidth + rectSize;
+                    let y1 = curHeight;
+                    let y2 = curHeight + rectSize;
+                    do Screen.drawRectangle(x1, y1, x2, y2)
+                }
+                let curWidth = curWidth + 1;
+            }
+
+            let curHeight = curHeight + 1;
+        }
+        return;
+    }
+
+}
