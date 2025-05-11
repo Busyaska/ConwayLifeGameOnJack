@@ -3,7 +3,7 @@ class Display {
     static int rectSize, isInitialized;
 
     function void init() {
-        let rectSize = 8;
+        let rectSize = 7;
         let isInitialized = 1;
         return;
     }
@@ -20,15 +20,16 @@ class Display {
             do Display.init();
         }
 
+        do Screen.clearScreen();
         while (~(height = curHeight)) {            
             let curWidth = 0;
             while (~(width = curWidth)) {
                 let innerArray = array[curHeight];
                 if (innerArray[curWidth] = 1) {
-                    let x1 = curWidth;
-                    let x2 = curWidth + rectSize;
-                    let y1 = curHeight;
-                    let y2 = curHeight + rectSize;
+                    let x1 = curWidth * 8;
+                    let x2 = x1 + rectSize;
+                    let y1 = curHeight * 8;
+                    let y2 = y1 + rectSize;
                     do Screen.drawRectangle(x1, y1, x2, y2);
                 }
                 let curWidth = curWidth + 1;

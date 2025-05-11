@@ -1,0 +1,94 @@
+function Display.init 0
+push constant 7
+pop static 0
+push constant 1
+pop static 1
+push constant 0
+return
+function Display.updateScreen 9
+call Game.getWidth 0
+pop local 1
+call Game.getHeight 0
+pop local 2
+push constant 0
+pop local 4
+push static 1
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+call Display.init 0
+pop temp 0
+label IF_FALSE0
+call Screen.clearScreen 0
+pop temp 0
+label WHILE_EXP0
+push local 2
+push local 4
+eq
+not
+not
+if-goto WHILE_END0
+push constant 0
+pop local 3
+label WHILE_EXP1
+push local 1
+push local 3
+eq
+not
+not
+if-goto WHILE_END1
+push local 4
+push argument 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push local 3
+push local 0
+add
+pop pointer 1
+push that 0
+push constant 1
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push local 3
+push constant 8
+call Math.multiply 2
+pop local 5
+push local 5
+push static 0
+add
+pop local 7
+push local 4
+push constant 8
+call Math.multiply 2
+pop local 6
+push local 6
+push static 0
+add
+pop local 8
+push local 5
+push local 6
+push local 7
+push local 8
+call Screen.drawRectangle 4
+pop temp 0
+label IF_FALSE1
+push local 3
+push constant 1
+add
+pop local 3
+goto WHILE_EXP1
+label WHILE_END1
+push local 4
+push constant 1
+add
+pop local 4
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return

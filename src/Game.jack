@@ -13,8 +13,8 @@ class Game {
     }
 
     function void init() {
-        let width = 32;
-        let height = 16;
+        let width = 64;
+        let height = 32;
         let isInitialized = 1;
         return;
     }
@@ -45,7 +45,7 @@ class Game {
         var Array innerArray;
         var int curWidth, curHeight, value;
         let curHeight = 0;
-
+        
         while (~(curHeight = height)) {
             let curWidth = 0;
             while (~(curWidth = width)) {
@@ -93,7 +93,7 @@ class Game {
 
     method void update () {
         var Array nextGen, innerArrayCur, innerArrayNext;
-        var int curWidth, curHeight, neighboursCount;    
+        var int curWidth, curHeight, neighboursCount, temp;    
         let nextGen = Game.getNewArray();
         let curWidth = 0;
 
@@ -105,13 +105,22 @@ class Game {
                 let innerArrayNext = nextGen[curHeight];
                 let neighboursCount = Game.countAliveNeighbours(curGen, curWidth, curHeight);
 
-                if (innerArrayCur[curWidth] = 1) {
-                    if ((neighboursCount = 2) | (neighboursCount = 3)) {
-                        let innerArrayNext[curWidth] = 1;
+                let temp = innerArrayCur[curWidth];
+                if (temp = 1) {
+                    if (neighboursCount < 2) {
+                        let innerArrayNext[curWidth] = 0;
+                    } else {
+                        if ((neighboursCount = 2) | (neighboursCount = 3)) {
+                            let innerArrayNext[curWidth] = 1;
+                        } else {
+                            let innerArrayNext[curWidth] = 0;
+                        }
                     }
                 } else {
                     if (neighboursCount = 3) {
                         let innerArrayNext[curWidth] = 1;
+                    } else {
+                        let innerArrayNext[curWidth] = 0;
                     }
                 }
                 let curWidth = curWidth + 1;
@@ -126,7 +135,8 @@ class Game {
             while (~(width = curWidth)) {
                 let innerArrayCur = curGen[curHeight];
                 let innerArrayNext = nextGen[curHeight];
-                let innerArrayCur[curWidth] = innerArrayNext[curWidth];
+                let temp = innerArrayNext[curWidth];
+                let innerArrayCur[curWidth] = temp;
                 let curWidth = curWidth + 1;
             }
             let curHeight = curHeight + 1;

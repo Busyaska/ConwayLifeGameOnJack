@@ -1,0 +1,52 @@
+class Program {
+
+    static boolean isPaused, isRunning;
+    static int spaceButton, escButton, enterButton, isInitialized;
+
+    function void init () {
+        let isPaused = false;
+        let isRunning = true;
+        let escButton = 140;
+        let enterButton = 128;
+        let spaceButton = 32;
+        let isInitialized = 1;
+        return;
+    }
+
+    function void run() {
+        var Game game;
+        var Array curArray;
+        let game = Game.new();
+
+        if (isInitialized = 0) {
+            do Program.init();
+        }
+
+        while (isRunning) {
+            do Program.processInput();
+            if (~(isPaused)) {
+                do game.update();
+                let curArray = game.getCurrentGeneration();
+                do Display.updateScreen(curArray);
+            }
+        }
+        do game.clear();
+        let game = null;
+        return; 
+    }
+
+    function void processInput () {
+        var int curButton;
+        let curButton = Keyboard.keyPressed();
+        if (curButton = spaceButton) {
+            let isPaused = true;
+        }
+        if (curButton = enterButton) {
+            let isPaused = false;
+        }
+        if (curButton = escButton) {
+            let isRunning = false;
+        }
+        return;
+    }
+}
