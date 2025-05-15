@@ -171,6 +171,7 @@ class Game {
     method void clear() {
         do Game.clearArray(curGen);
         let curGen = null;
+        do Memory.deAlloc(this);
         return;
     }
 }
